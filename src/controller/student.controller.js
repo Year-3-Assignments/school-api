@@ -1,10 +1,8 @@
-import Student from "../model/Student";
+import Student from "../model/student.model";
 
+//Insertinf students 
 export async function createStudent(req, res) {
-  const studentData = {
-    name: req.body.name,
-    email: req.body.email
-  };
+  let studentData = new Student(req.body);
   console.log('Student image', studentData);
   const student = new Student(studentData);
   await student.save()
