@@ -3,7 +3,6 @@ import Student from "../model/student.model";
 //Insertinf students 
 export async function createStudent(req, res) {
   let studentData = new Student(req.body);
-  console.log('Student image', studentData);
   const student = new Student(studentData);
   await student.save()
   .then(data => {
