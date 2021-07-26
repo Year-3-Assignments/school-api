@@ -31,6 +31,10 @@ const ExamSchema = new Schema(
       required: [true, 'Exam access password is required'],
       trim: true,
     },
+    startDateTime: {
+      type: Date,
+      required: [true, 'Start date and time is required'],
+    },
   },
   {
     timestamps: true,

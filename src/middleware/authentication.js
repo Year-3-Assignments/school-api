@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
+import User from '../model/User';
 
 module.exports = async function auth(req, res, next) {
   try {
-    const User = require('../model/User');
     const TOKEN = req.header('Authorization');
     const DECODE = jwt.verify(TOKEN, 'schoolapisecret');
     const user = await User.findOne({ _id: DECODE._id, token: TOKEN });
