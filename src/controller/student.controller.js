@@ -1,4 +1,4 @@
-import Student from "../model/student.model";
+import Student from "../model/Student";
 
 //Insertinf students 
 export async function createStudent(req, res) {
@@ -22,3 +22,4 @@ export async function getAllStudents(req, res) {
     res.status(500).json(error.message);
   });
 }
+
