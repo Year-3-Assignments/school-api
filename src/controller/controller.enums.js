@@ -4,6 +4,7 @@ export default {
     ADMIN: 'ADMIN',
     STAFF: 'STAFF',
     STUDENT: 'STUDENT',
+    COACH: 'COACH'
   },
   roleIssue: {
     ONLY_TEACHER: 'Only teacher can asscess this function',
