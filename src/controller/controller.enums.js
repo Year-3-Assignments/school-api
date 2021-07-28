@@ -3,11 +3,14 @@ export default {
     TEACHER: 'TEACHER',
     ADMIN: 'ADMIN',
     STAFF: 'STAFF',
+    STUDENT: 'STUDENT',
   },
   roleIssue: {
     ONLY_TEACHER: 'Only teacher can asscess this function',
     ONLY_ADMIN: 'Only admin can access this function',
     ONLY_STAFF: 'Only staff member can access this function',
+    ONLY_STUDENT: 'Only student can access this function',
+    ONLY_STUDENT_TEACHER: 'Only student and teacher can access this function',
   },
   exam: {
     NOT_FOUND: 'Examination is not found',
@@ -25,6 +28,12 @@ export default {
   student: {
     INSERTED_SUCCESS: 'Student inserted successfully',
     INSERTED_ERROR: 'Student insertion is Unsuccessful',
-    NO_STUDENT: 'Student is not found'
-  }
+    NO_STUDENT: 'Student is not found',
+  },
+  question: {
+    CREATE_SUCCESS: 'Question created successfully',
+    CREATE_ERROR: 'Question creation unsuccess',
+    NOT_FOUND: 'Question not found',
+    LEVEL_EASY: 'easy',
+  },
 };

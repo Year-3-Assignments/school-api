@@ -15,6 +15,7 @@ const QuestionSchema = new Schema(
         option: { type: String, required: false, trim: true },
       },
     ],
+    correctOption: { type: String, required: false, trim: true },
   },
   {
     timestamps: true,

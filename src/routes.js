@@ -12,6 +12,14 @@ import {
   getStudentByID,
   updateStudent,
 } from './controller/student.controller';
+import {
+  createQuestion,
+  getQuestionsForExam,
+  getQuestionsForTeacher,
+  getQuestion,
+  updateQuestion,
+  deleteQuestion,
+} from './controller/question.controller';
 import auth from './middleware/authentication';
 
 export default function (app) {
@@ -29,4 +37,11 @@ export default function (app) {
   app.get('/student/:id', auth, getStudentByID);
   app.put('student/update/:id', auth, updateStudent);
   app.delete('student/delete/:id', auth, deleteStudent);
+  // Question API endpoints
+  app.post('/question/add', auth, createQuestion);
+  app.get('/question/exam/teacher/:id', auth, getQuestionsForTeacher);
+  app.get('/question/exam/:id', auth, getQuestionsForExam);
+  app.get('/question/:id', auth, getQuestion);
+  app.put('/question/update/:id', auth, updateQuestion);
+  app.delete('/question/delete/:id', auth, deleteQuestion);
 }
