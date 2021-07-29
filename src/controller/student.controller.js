@@ -1,3 +1,4 @@
+import { response } from 'express';
 import Student from '../model/Student';
 import responseHandler from '../response/response.handler';
 import enums from './controller.enums';
@@ -9,10 +10,10 @@ export async function createStudent(req, res) {
     await student
       .save()
       .then((data) => {
-        res.status(200).json(data);
+        responseHandler.respond(res, data);
       })
       .catch((error) => {
-        res.status(500).json(error.message);
+        response.handleError(res, errpr.message);
       });
   } else {
     return responseHandler.respond(res, enums.roleIssue.ONLY_ADMIN);
@@ -22,10 +23,10 @@ export async function createStudent(req, res) {
 export async function getAllStudents(req, res) {
   await Student.find({})
     .then((students) => {
-      res.status(200).json(students);
+      responseHandler.respond(res, data);
     })
     .catch((error) => {
-      res.status(500).json(error.message);
+      response.handleError(res, error.message);
     });
 }
 
