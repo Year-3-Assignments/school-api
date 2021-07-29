@@ -29,6 +29,8 @@ export default {
     INSERTED_SUCCESS: 'Student inserted successfully',
     INSERTED_ERROR: 'Student insertion is Unsuccessful',
     NO_STUDENT: 'Student is not found',
+    STUDENT_DATA:
+      'firstname lastname dateofbirth address1 address2 city province grade imageurl achievements parent phone email username',
   },
   question: {
     CREATE_SUCCESS: 'Question created successfully',

@@ -30,19 +30,11 @@ export async function getAllStudents(req, res) {
 }
 
 export async function getStudentByID(req, res, next) {
-  if (req.params && req.params.id) {
+  if (req.params && req.user && req.user.role === enums.role.ADMIN) {
     await Student.findById(req.params.id)
-      .populate({
-        path: 'student',
-        populate: {
-          path: 'student',
-          model: 'users',
-          select:
-            '_id firstname lastname dateofbirth address1 address2 city province grade imageurl achievements parent phone email username',
-        },
-      })
+      .populate('password', enums.student.STUDENT_DATA)
       .then((data) => {
-        response.sendRespond(res, data);
+        responseHandler.respond(res, data);
         next();
       })
       .catch((error) => {
@@ -50,7 +42,7 @@ export async function getStudentByID(req, res, next) {
         next();
       });
   } else {
-    response.sendRespond(res, enums.student.NO_STUDENT);
+    responseHandler.respond(res, enums.student.NO_STUDENT);
     return;
   }
 }
@@ -99,7 +91,7 @@ export async function updateStudent(req, res) {
       responseHandler.handleError(res, error.message);
     }
   } else {
-    return responseHandler.response(res, enums.roleIssue.ONLY_ADMIN);
+    return responseHandler.respond(res, enums.roleIssue.ONLY_ADMIN);
   }
 }
 
