@@ -26,6 +26,13 @@ export default {
     PASSWORD_NOT_MATCH: 'Password is not matched',
     CREDENTIAL_REQUIRED: 'Username and the password is required',
   },
+  student: {
+    INSERTED_SUCCESS: 'Student inserted successfully',
+    INSERTED_ERROR: 'Student insertion is Unsuccessful',
+    NO_STUDENT: 'Student is not found',
+    STUDENT_DATA:
+      'firstname lastname dateofbirth address1 address2 city province grade imageurl achievements parent phone email username',
+  },
   question: {
     CREATE_SUCCESS: 'Question created successfully',
     CREATE_ERROR: 'Question creation unsuccess',
