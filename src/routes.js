@@ -13,6 +13,12 @@ import {
   updateQuestion,
   deleteQuestion,
 } from './controller/question.controller';
+import {
+  createSport,
+  getAllSportsDetails,
+  updateSport,
+  deleteSport
+} from './controller/sport.controller';
 import auth from './middleware/authentication';
 
 export default function (app) {
@@ -31,4 +37,7 @@ export default function (app) {
   app.get('/question/:id', auth, getQuestion);
   app.put('/question/update/:id', auth, updateQuestion);
   app.delete('/question/delete/:id', auth, deleteQuestion);
+  // Sports API endpoints
+  app.post('/sport/add', createSport);
+  app.post('/sport', getAllSportsDetails);
 }
