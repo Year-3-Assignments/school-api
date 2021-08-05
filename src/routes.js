@@ -26,6 +26,12 @@ import {
   updateSport,
   deleteSport
 } from './controller/sport.controller';
+import {
+  createSportInventory,
+  getAllSportsInventory,
+  updateSportInventory,
+  deleteSportInventory
+} from './controller/sports-inventory.controller';
 import auth from './middleware/authentication';
 
 export default function (app) {
@@ -52,5 +58,12 @@ export default function (app) {
   app.delete('/question/delete/:id', auth, deleteQuestion);
   // Sports API endpoints
   app.post('/sport/add', createSport);
-  app.post('/sport', getAllSportsDetails);
+  app.get('/sport', getAllSportsDetails);
+  app.put('/sport/:id', updateSport);
+  app.delete('/sport/:id', deleteSport);
+  // Sports Inventory API endpoints
+  app.post('/sportsinventory/add', createSportInventory);
+  app.get('/sportsinventory', getAllSportsInventory);
+  app.put('/sportsinventory/:id', updateSportInventory);
+  app.delete('/sportsinventory/:id', deleteSport);
 }

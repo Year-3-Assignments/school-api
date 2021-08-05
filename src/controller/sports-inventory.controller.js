@@ -1,4 +1,5 @@
 import SportsInventory from '../model/SportsInventory'
+import responseHandler from '../response/response.handler';
 
     export async function createSportInventory(req, res, next) {
         let sportsInventory = new SportsInventory(req.body);
@@ -12,16 +13,14 @@ import SportsInventory from '../model/SportsInventory'
     }
 
     export async function getAllSportsInventory(req, res, next) {
-        await SportsInventory.findById(req.params.id)
+        await SportsInventory.find({})
         .sort({ createdAt: -1 })
         .populate('sportname', '_id name coach ')
         .then((data) => {
-            response.sendRespond(res, data);
-            return;
+          responseHandler.respond(res, data);
         })
-        .catch(error => {
-            response.handleError(res, error.message);
-            return;
+        .catch((error) => {
+            responseHandler.handleError(res, error.message);
         });
     }
 
@@ -39,11 +38,11 @@ import SportsInventory from '../model/SportsInventory'
         };
         await SportsInventory.findByIdAndUpdate(req.body._id, updateSportData)
         .then(data => {
-          response.sendRespond(res, data);
+            responseHandler.respond(res, data);
           return;
         })
         .catch(error => {
-          response.handleError(res, error.message);
+            responseHandler.handleError(res, error.message);
           return;
         });
     }
@@ -51,11 +50,11 @@ import SportsInventory from '../model/SportsInventory'
     export async function deleteSportInventory(req, res, next) {
         await SportsInventory.findByIdAndDelete(req.params.id)
         .then(data => {
-            response.sendRespond(res, data);
+            responseHandler.respond(res, data);
             return;
         })
         .catch(error => {
-            response.handleError(res, error.message);
+            responseHandler.handleError(res, error.message);
             return;
         });
     }

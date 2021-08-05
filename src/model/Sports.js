@@ -7,6 +7,11 @@ const SportSchema = new Schema(
             required: [true, 'Sport name is required'],
             trim: true
         },
+        teamImageUrl: {
+            type: String,
+            required: [true, 'Image is requred'],
+            trim: true
+        },
         coach: [{
             type: Schema.Types.ObjectId,
             required: [true, 'Coach person is required'],
@@ -15,7 +20,7 @@ const SportSchema = new Schema(
         teamPlayers: [{
             type: Schema.Types.ObjectId, 
             required: [true, 'Team Players list is required'],
-            ref: 'users',
+            ref: 'students',
         }],
     },
     {

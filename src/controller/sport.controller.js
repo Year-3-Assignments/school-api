@@ -1,4 +1,5 @@
 import Sport from '../model/Sports'
+import responseHandler from '../response/response.handler';
 
     export async function createSport(req, res, next) {
         let sports = new Sport(req.body);
@@ -12,24 +13,22 @@ import Sport from '../model/Sports'
     }
 
     export async function getAllSportsDetails(req, res, next) {
-        await Sport.findById(req.params.id)
+        await Sport.find({})
         .sort({ createdAt: -1 })
         .populate('coach', '_id firstName lastName email phoneNumber addressLine1 addressLine2 city imageurl description')
-        .populate('teamPlayers', '_id firstName lastName email phoneNumber addressLine1 addressLine2 city imageurl description')
+        .populate('teamPlayers', '_id firstname lastname dateofbirth grade imageurl phone email')
         .then((data) => {
-            response.sendRespond(res, data);
-            return;
+          responseHandler.respond(res, data);
         })
-        .catch(error => {
-            response.handleError(res, error.message);
-            return;
+        .catch((error) => {
+            responseHandler.handleError(res, error.message);
         });
     }
 
     export async function updateSport(req, res, next) {
         let sports = await SportsInventory.findById(req.body._id);
         if (!sports) {
-          response.handleError(res, 'Sport not found');
+            responseHandler.handleError(res, 'Sport not found');
           return;
         }
         let updateSportData = {
@@ -39,11 +38,11 @@ import Sport from '../model/Sports'
         };
         await Sport.findByIdAndUpdate(req.body._id, updateSportData)
         .then(data => {
-          response.sendRespond(res, data);
+            responseHandler.respond(res, data);
           return;
         })
         .catch(error => {
-          response.handleError(res, error.message);
+            responseHandler.handleError(res, error.message);
           return;
         });
     }
@@ -51,11 +50,11 @@ import Sport from '../model/Sports'
     export async function deleteSport(req, res, next) {
         await Sport.findByIdAndDelete(req.params.id)
         .then(data => {
-            response.sendRespond(res, data);
+            responseHandler.respond(res, data);
             return;
         })
         .catch(error => {
-            response.handleError(res, error.message);
+            responseHandler.handleError(res, error.message);
             return;
         });
     }
