@@ -24,7 +24,9 @@ import {
   createSport,
   getAllSportsDetails,
   updateSport,
-  deleteSport
+  deleteSport,
+  getSportsCoach,
+  getSportsStudents
 } from './controller/sport.controller';
 import {
   createSportInventory,
@@ -61,6 +63,8 @@ export default function (app) {
   app.get('/sport', getAllSportsDetails);
   app.put('/sport/:id', updateSport);
   app.delete('/sport/:id', deleteSport);
+  app.get('/sport/coach', getSportsCoach);
+  app.get('/sport/student', getSportsStudents);
   // Sports Inventory API endpoints
   app.post('/sportsinventory/add', createSportInventory);
   app.get('/sportsinventory', getAllSportsInventory);

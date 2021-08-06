@@ -1,4 +1,6 @@
 import Sport from '../model/Sports'
+import User from '../model/User'
+import Student from '../model/Student'
 import responseHandler from '../response/response.handler';
 
     export async function createSport(req, res, next) {
@@ -26,6 +28,8 @@ import responseHandler from '../response/response.handler';
     }
 
     export async function updateSport(req, res, next) {
+      console.log(req.body.coach, " " , req.body.teamPlayers);
+
         let sports = await SportsInventory.findById(req.body._id);
         if (!sports) {
             responseHandler.handleError(res, 'Sport not found');
@@ -33,10 +37,14 @@ import responseHandler from '../response/response.handler';
         }
         let updateSportData = {
           name: req.body.name,
-          coach: req.body.coach_id,
+          coach: req.body.coach,
           teamPlayers: req.body.teamPlayers
         };
-        await Sport.findByIdAndUpdate(req.body._id, updateSportData)
+        await Sport.findByIdAndUpdate(req.body._id, 
+
+          { $set: { coach: req.body.coach } }, { safe: true, upsert: true, new: true }
+          
+          )
         .then(data => {
             responseHandler.respond(res, data);
           return;
@@ -58,3 +66,25 @@ import responseHandler from '../response/response.handler';
             return;
         });
     }
+
+    export async function getSportsCoach(req, res, next) {
+      await User.find({role: 'COACH'}).select('firstName lastName imageurl')
+      .sort({ createdAt: -1 })
+      .then((data) => {
+        responseHandler.respond(res, data);
+      })
+      .catch((error) => {
+          responseHandler.handleError(res, error.message);
+      });
+  }
+
+  export async function getSportsStudents(req, res, next) {
+    await Student.find({}).select('firstname lastname imageurl grade')
+    .sort({ createdAt: -1 })
+    .then((data) => {
+      responseHandler.respond(res, data);
+    })
+    .catch((error) => {
+        responseHandler.handleError(res, error.message);
+    });
+}
