@@ -13,7 +13,7 @@ export async function createStudent(req, res) {
         responseHandler.respond(res, data);
       })
       .catch((error) => {
-        response.handleError(res, errpr.message);
+        response.handleError(res, error.message);
       });
   } else {
     return responseHandler.respond(res, enums.roleIssue.ONLY_ADMIN);
