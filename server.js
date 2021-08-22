@@ -36,7 +36,11 @@ if (ENVIRONMENT && ENVIRONMENT.trim() === 'development') {
 
 if (PORT && mongoUri) {
   mongoose
-    .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    })
     .then(() => {
       LOG.info('Database Synced');
     })
