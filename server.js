@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import {
   DEVELOPMENT_PORT,
   DEVELOPMENT_MONGO_URI,
@@ -17,6 +18,7 @@ let PORT;
 let mongoUri;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 // check the environment
 if (ENVIRONMENT && ENVIRONMENT.trim() === 'production') {
