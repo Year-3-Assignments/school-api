@@ -43,5 +43,5 @@ export default function (app) {
   app.get('/question/exam/:id', auth, getQuestionsForExam);
   app.get('/question/:id', auth, getQuestion);
   app.put('/question/update/:id', auth, updateQuestion);
-  app.delete('/question/delete/:id', auth, deleteQuestion);
+  app.post('/question/delete/:id', auth, deleteQuestion);
 }
