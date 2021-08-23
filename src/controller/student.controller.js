@@ -23,10 +23,10 @@ export async function createStudent(req, res) {
 export async function getAllStudents(req, res) {
   await Student.find({})
     .then((students) => {
-      responseHandler.respond(res, data);
+      responseHandler.respond(res, students);
     })
     .catch((error) => {
-      response.handleError(res, error.message);
+      responseHandler.handleError(res, error.message);
     });
 }
 
