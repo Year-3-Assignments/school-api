@@ -9,6 +9,7 @@ import {
 } from './config';
 import LOG from './log';
 import routes from './routes';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,7 @@ let PORT;
 let mongoUri;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 // check the environment
 if (ENVIRONMENT && ENVIRONMENT.trim() === 'production') {
