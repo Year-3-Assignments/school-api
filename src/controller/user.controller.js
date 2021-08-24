@@ -49,7 +49,7 @@ export async function loginUser(req, res) {
         let user = await User.findByUsernamePassword(userName, password);
 
         if (!user) {
-          return resolve(enums.user.NOT_FOUND);
+          throw new Error(enums.user.NOT_FOUND);
         }
 
         const TOKEN = await user.generateAuthToken();
