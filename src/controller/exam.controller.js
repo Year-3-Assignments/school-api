@@ -5,7 +5,10 @@ import responseHandler from '../response/response.handler';
 export async function createExam(req, res) {
   if (req.user && req.user.role === enums.role.TEACHER) {
     let examDetails = {
+      examId: req.body.examId,
       title: req.body.title,
+      subject: req.body.subject,
+      status: req.body.status,
       createdBy: req.user._id,
       createdFor: req.body.createdFor,
       duration: req.body.duration,
@@ -31,7 +34,10 @@ export async function createExam(req, res) {
 export async function getExamsForTeacher(req, res) {
   if (req.user && req.user.role === enums.role.TEACHER) {
     new Promise(async (resolve, reject) => {
-      let exams = await Exam.find({ createdBy: req.user._id });
+      let exams = await Exam.find({ createdBy: req.user._id }).populate(
+        'createdBy',
+        'firstName lastName email phoneNumber imageurl user'
+      );
       return resolve({ exams });
     })
       .then((data) => {
@@ -56,6 +62,9 @@ export async function updateExam(req, res) {
         }
 
         let examDetails = {
+          examId: req.body.examId,
+          subject: req.body.subject,
+          status: req.body.status,
           title: req.body.title,
           createdBy: req.user._id,
           createdFor: req.body.createdFor,

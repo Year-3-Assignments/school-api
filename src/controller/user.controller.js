@@ -49,7 +49,7 @@ export async function loginUser(req, res) {
         let user = await User.findByUsernamePassword(userName, password);
 
         if (!user) {
-          return resolve(enums.user.NOT_FOUND);
+          throw new Error(enums.user.NOT_FOUND);
         }
 
         const TOKEN = await user.generateAuthToken();
@@ -80,5 +80,29 @@ export async function loginUser(req, res) {
       });
   } else {
     return responseHandler.handleError(res, enums.user.CREDENTIAL_REQUIRED);
+  }
+}
+
+export async function getUserInfo(req, res) {
+  const user = req.user;
+
+  if (user) {
+    const userObject = {
+      _id: req.user._id,
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      email: req.user.email,
+      phoneNumber: req.user.phoneNumber,
+      addressLine1: req.user.addressLine1,
+      addressLine2: req.user.addressLine2,
+      city: req.user.city,
+      role: req.user.role,
+      imageUrl: req.user.imageurl,
+      userName: req.user.userName,
+    };
+
+    responseHandler.respond(res, userObject);
+  } else {
+    responseHandler.notFound(res);
   }
 }

@@ -8,7 +8,7 @@ const QuestionSchema = new Schema(
       required: [true, 'Question is required'],
       trim: true,
     },
-    isWritingQuestion: { type: Boolean, required: false, default: false },
+    isMCQQuestion: { type: Boolean, required: false, default: false },
     level: { type: String, required: false, trim: true },
     options: [
       {
