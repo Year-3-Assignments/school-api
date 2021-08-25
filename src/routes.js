@@ -1,4 +1,8 @@
-import { createUser, loginUser } from './controller/user.controller';
+import {
+  createUser,
+  loginUser,
+  getUserInfo,
+} from './controller/user.controller';
 import {
   createExam,
   getExamsForTeacher,
@@ -26,6 +30,7 @@ export default function (app) {
   // User API endpoints
   app.post('/user/create', createUser);
   app.post('/user/login', loginUser);
+  app.get('/user/', auth, getUserInfo);
   // Exam API endpoints
   app.post('/exam/add', auth, createExam);
   app.get('/exam/teacher', auth, getExamsForTeacher);
