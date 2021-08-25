@@ -13,7 +13,7 @@ export async function createStudent(req, res) {
         responseHandler.respond(res, data);
       })
       .catch((error) => {
-        response.handleError(res, error.message);
+        responseHandler.handleError(res, error.message);
       });
   } else {
     return responseHandler.respond(res, enums.roleIssue.ONLY_ADMIN);
@@ -23,7 +23,7 @@ export async function createStudent(req, res) {
 export async function getAllStudents(req, res) {
   await Student.find({})
     .then((students) => {
-      responseHandler.respond(res, data);
+      responseHandler.respond(res, students);
     })
     .catch((error) => {
       response.handleError(res, error.message);
