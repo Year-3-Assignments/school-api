@@ -11,7 +11,6 @@ import {
 } from './config';
 import LOG from './log';
 import routes from './routes';
-import cors from 'cors';
 
 dotenv.config();
 const app = express();

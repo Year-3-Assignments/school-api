@@ -2,6 +2,11 @@ import mongoose, { Schema } from 'mongoose'
 
 const SportSchema = new Schema(
     {
+        sportId: {
+            type: String,
+            required: [true, 'Sport ID is required'],
+            trim: true,
+          },
         name: {
             type: String,
             required: [true, 'Sport name is required'],
