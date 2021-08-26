@@ -78,7 +78,7 @@ const UserSchema = new Schema(
       trim: true,
     },
     salary: {
-      type: Number,
+      type: String,
       required: [true, 'Salary is required'],
     },
     token: { type: String },

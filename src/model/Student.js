@@ -36,7 +36,7 @@ const StudentSchema = new Schema(
       required: [true, 'Province is required'],
       trim: true,
     },
-    grade: { type: Number, required: true, trim: true },
+    grade: { type: String, required: true, trim: true },
     imageurl: { type: String, required: false, trim: true },
     achievements: [{ type: String, required: true, trim: true }],
     parent: { type: String, required: true, trim: true },
