@@ -26,7 +26,7 @@ export async function getAllStudents(req, res) {
       responseHandler.respond(res, students);
     })
     .catch((error) => {
-      response.handleError(res, error.message);
+      responseHandler.handleError(res, error.message);
     });
 }
 
