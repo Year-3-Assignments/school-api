@@ -7,7 +7,7 @@ export async function createQuestion(req, res) {
     let questionDetails = {
       examId: req.body.examId,
       question: req.body.question,
-      isWritingQuestion: req.body.isWritingQuestion,
+      isMCQQuestion: req.body.isMCQQuestion,
       level: req.body.level || enums.question.LEVEL_EASY,
       options: req.body.options,
       correctOption: req.body.correctOption,
@@ -28,11 +28,14 @@ export async function createQuestion(req, res) {
 }
 
 export async function getQuestionsForExam(req, res) {
-  if (req.params && req.user && req.user.role === enums.role.STUDENT) {
+  if (
+    (req.params && req.user && req.user.role === enums.role.STUDENT) ||
+    req.user.role === enums.role.TEACHER
+  ) {
     new Promise(async (resolve, reject) => {
       const questions = await Question.find(
         { examId: req.params.id },
-        'isWritingQuestion level options',
+        'isMCQQuestion level options question correctOption',
         (error, result) => {
           if (error) {
             return error;
@@ -126,7 +129,7 @@ export async function updateQuestion(req, res) {
 }
 
 export async function deleteQuestion(req, res) {
-  if (req.params && req.user && req.user.role === enums.role.TEACHER) {
+  if (req.params.id && req.user && req.user.role === enums.role.TEACHER) {
     try {
       new Promise(async (resolve, reject) => {
         let question = await Question.findById(req.params.id);
@@ -142,9 +145,11 @@ export async function deleteQuestion(req, res) {
           responseHandler.respond(res, data);
         })
         .catch((error) => {
+          console.log(error);
           responseHandler.handleError(res, error.message);
         });
     } catch (error) {
+      console.log(error);
       return responseHandler.handleError(res, error.message);
     }
   } else {

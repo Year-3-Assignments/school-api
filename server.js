@@ -1,11 +1,13 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import {
   DEVELOPMENT_PORT,
   DEVELOPMENT_MONGO_URI,
   PRODUCTION_PORT,
   PRODUCTION_MONGO_URI,
+  LOCAL_MONGO_URI,
 } from './config';
 import LOG from './log';
 import routes from './routes';
@@ -17,6 +19,7 @@ let PORT;
 let mongoUri;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 // check the environment
 if (ENVIRONMENT && ENVIRONMENT.trim() === 'production') {
@@ -27,13 +30,17 @@ if (ENVIRONMENT && ENVIRONMENT.trim() === 'production') {
 
 if (ENVIRONMENT && ENVIRONMENT.trim() === 'development') {
   PORT = DEVELOPMENT_PORT;
-  mongoUri = DEVELOPMENT_MONGO_URI;
+  mongoUri = LOCAL_MONGO_URI;
   LOG.info(`Development Mongo: ${mongoUri}`);
 }
 
 if (PORT && mongoUri) {
   mongoose
-    .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    })
     .then(() => {
       LOG.info('Database Synced');
     })

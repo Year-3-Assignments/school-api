@@ -2,9 +2,19 @@ import mongoose, { Schema } from 'mongoose';
 
 const ExamSchema = new Schema(
   {
+    examId: {
+      type: String,
+      required: [true, 'Exam ID is required'],
+      trim: true,
+    },
     title: {
       type: String,
       required: [true, 'Exam title is required'],
+      trim: true,
+    },
+    subject: {
+      type: String,
+      required: [true, 'Exam subject is required'],
       trim: true,
     },
     createdBy: {
@@ -34,6 +44,11 @@ const ExamSchema = new Schema(
     startDateTime: {
       type: Date,
       required: [true, 'Start date and time is required'],
+    },
+    status: {
+      type: String,
+      required: [true, 'Exam status is required'],
+      trim: true,
     },
   },
   {
