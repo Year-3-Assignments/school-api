@@ -2,7 +2,7 @@ import {
   createUser,
   loginUser,
   getUserInfo,
-  getAllEmployees, 
+  getAllEmployees,
   getEmployeeById,
   deleteEmployee,
   updateEmployee,
@@ -12,6 +12,7 @@ import {
   getExamsForTeacher,
   updateExam,
   deleteExam,
+  getExamPaperForStudent,
 } from './controller/exam.controller';
 import {
   createStudent,
@@ -34,13 +35,13 @@ import {
   updateSport,
   deleteSport,
   getSportsCoach,
-  getSportsStudents
+  getSportsStudents,
 } from './controller/sport.controller';
 import {
   createSportInventory,
   getAllSportsInventory,
   updateSportInventory,
-  deleteSportInventory
+  deleteSportInventory,
 } from './controller/sports-inventory.controller';
 import auth from './middleware/authentication';
 
@@ -58,6 +59,7 @@ export default function (app) {
   app.get('/exam/teacher', auth, getExamsForTeacher);
   app.put('/exam/update/:id', auth, updateExam);
   app.delete('/exam/delete/:id', auth, deleteExam);
+  app.get('/exam/getquestions/:id', auth, getExamPaperForStudent);
   //Student API Endpoints
   app.post('/student/add', auth, createStudent);
   app.get('/student', auth, getAllStudents);
@@ -84,4 +86,3 @@ export default function (app) {
   app.put('/sportsinventory/:id', updateSportInventory);
   app.delete('/sportsinventory/:id', deleteSport);
 }
-
