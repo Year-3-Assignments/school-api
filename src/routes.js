@@ -6,6 +6,7 @@ import {
   getEmployeeById,
   deleteEmployee,
   updateEmployee,
+  getAllSalary,
 } from './controller/user.controller';
 import {
   createExam,
@@ -39,6 +40,7 @@ export default function (app) {
   app.get('/user/:id', getEmployeeById);
   app.delete('/user/delete/:id', deleteEmployee);
   app.put('/user/update:id', updateEmployee);
+  app.get('/user/salary', getAllSalary);
   // Exam API endpoints
   app.post('/exam/add', auth, createExam);
   app.get('/exam/teacher', auth, getExamsForTeacher);
