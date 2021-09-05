@@ -44,6 +44,7 @@ import {
   deleteSportInventory,
 } from './controller/sports-inventory.controller';
 import auth from './middleware/authentication';
+import { generatePaper } from './pdf-generator/exam-paper-generator';
 
 export default function (app) {
   // User API endpoints
@@ -85,4 +86,6 @@ export default function (app) {
   app.get('/sportsinventory', getAllSportsInventory);
   app.put('/sportsinventory/:id', updateSportInventory);
   app.delete('/sportsinventory/:id', deleteSport);
+  // PDF url
+  app.post('/get-pdf', generatePaper);
 }

@@ -145,6 +145,7 @@ export async function getExamPaperForStudent(req, res) {
     (req.user && req.user.role === enums.role.STUDENT) ||
     req.user.role === enums.role.TEACHER
   ) {
+    const exam = await Exam.findById(req.params.id);
     const questions = await Question.find(
       { examId: req.params.id },
       'isMCQQuestion level options question',
@@ -156,7 +157,13 @@ export async function getExamPaperForStudent(req, res) {
       }
     );
 
-    responseHandler.respond(res, questions);
+    const response = {
+      exam: exam,
+      questions: questions,
+      student: req.user,
+    };
+
+    responseHandler.respond(res, response);
   } else {
     return responseHandler.respond(res, enums.roleIssue.ONLY_STUDENT);
   }

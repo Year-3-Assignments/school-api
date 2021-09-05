@@ -11,6 +11,7 @@ import {
 import LOG from './log';
 import cors from 'cors';
 import routes from './routes';
+import Handlbars from 'handlebars';
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,10 @@ let mongoUri;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+
+Handlbars.registerHelper('inc', function (value, option) {
+  return parseInt(value) + 1;
+});
 
 // check the environment
 if (ENVIRONMENT && ENVIRONMENT.trim() === 'production') {
