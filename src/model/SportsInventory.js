@@ -13,7 +13,7 @@ const SportInventorySchema = new Schema(
             ref: 'sports',
         }],       
         dateOfPurchase: {
-            type: Date,
+            type: String,
             required: [true, 'Date of purchase is required'],
         },
         quantity: {
