@@ -45,7 +45,7 @@ import responseHandler from '../response/response.handler';
           },
           function(err, sport){
             console.log(sport);
-            console.log('shit has saved');  
+            // console.log('saved');  
             }
         )
         .then(data => {
