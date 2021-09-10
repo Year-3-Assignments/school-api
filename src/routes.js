@@ -2,6 +2,10 @@ import {
   createUser,
   loginUser,
   getUserInfo,
+  getAllEmployees, 
+  getEmployeeById,
+  deleteEmployee,
+  updateEmployee,
 } from './controller/user.controller';
 import {
   createExam,
@@ -45,6 +49,10 @@ export default function (app) {
   app.post('/user/create', createUser);
   app.post('/user/login', loginUser);
   app.get('/user/', auth, getUserInfo);
+  app.get('/user/getAllEmployees', getAllEmployees);
+  app.get('/user/:id', getEmployeeById);
+  app.delete('/user/delete/:id', deleteEmployee);
+  app.put('/user/update:id', updateEmployee);
   // Exam API endpoints
   app.post('/exam/add', auth, createExam);
   app.get('/exam/teacher', auth, getExamsForTeacher);

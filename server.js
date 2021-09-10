@@ -10,6 +10,7 @@ import {
   LOCAL_MONGO_URI,
 } from './config';
 import LOG from './log';
+import cors from 'cors';
 import routes from './routes';
 
 dotenv.config();
