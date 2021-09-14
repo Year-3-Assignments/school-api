@@ -216,3 +216,14 @@ export async function updateEmployee(req, res) {
     return responseHandler.respond(res, enums.roleIssue.ONLY_ADMIN);
   }
 }
+
+//get Salary details
+export async function getAllSalary(req, res) {
+  await User.find({})
+    .then((employees) => {
+      res.status(200).json(employees);
+    })
+    .catch((error) => {
+      res.status(500).json(error.message);
+    });
+}
