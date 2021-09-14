@@ -28,23 +28,26 @@ import responseHandler from '../response/response.handler';
     }
 
     export async function updateSport(req, res, next) {
-      console.log(req.body.coach, " " , req.body.teamPlayers);
+        console.log( req.params.id , " ",req.body.coach, " " , req.body.teamPlayers);
 
-        let sports = await SportsInventory.findById(req.body._id);
+        let sports = await Sport.findById(req.params.id);
         if (!sports) {
             responseHandler.handleError(res, 'Sport not found');
           return;
         }
-        let updateSportData = {
-          name: req.body.name,
-          coach: req.body.coach,
-          teamPlayers: req.body.teamPlayers
-        };
-        await Sport.findByIdAndUpdate(req.body._id, 
 
-          { $set: { coach: req.body.coach } }, { safe: true, upsert: true, new: true }
-          
-          )
+        await Sport.findByIdAndUpdate(req.params.id,
+          { 
+            name: req.body.name,
+            teamImageUrl: req.body.teamImageUrl,
+            coach: req.body.coach,
+            teamPlayers: req.body.teamPlayers
+          },
+          function(err, sport){
+            console.log(sport);
+            // console.log('saved');  
+            }
+        )
         .then(data => {
             responseHandler.respond(res, data);
           return;
