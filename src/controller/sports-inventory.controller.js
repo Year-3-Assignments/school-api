@@ -25,7 +25,7 @@ import responseHandler from '../response/response.handler';
     }
 
     export async function updateSportInventory(req, res, next) {
-        let sportsInventory = await SportsInventory.findById(req.body._id);
+        let sportsInventory = await SportsInventory.findById(req.params.id);
         if (!sportsInventory) {
           response.handleError(res, 'Sports Inventory not found');
           return;
@@ -36,7 +36,7 @@ import responseHandler from '../response/response.handler';
           dateOfPurchase: req.body.dateOfPurchase,
           quantity: req.body.quantity
         };
-        await SportsInventory.findByIdAndUpdate(req.body._id, updateSportData)
+        await SportsInventory.findByIdAndUpdate(req.params.id, updateSportData)
         .then(data => {
             responseHandler.respond(res, data);
           return;
