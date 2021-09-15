@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+  <style>
+    .exam-title{          
+      font-family: 'Poppins';
+      -webkit-font-smoothing: antialiased;
+      margin: 0px;
+    }   
+    .subject {
+      font-family: 'Poppins';
+      font-weight: lighter;
+      margin: 0px;
+    }
+    .question {
+      margin-bottom: 0px;
+    }
+    .answers {
+      margin-left: 50px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+    .column {
+      float: left;
+      width: 35%;
+      margin-bottom: 0px;
+      padding: 10px;
+    }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+  <h3 class="exam-title">{{title}} - {{grade}}</h3>
+  <h5 class="subject">Subject: {{ subject }}</h5>
+  <hr/>
+  {{#each questions}}
+    <p class="question">{{inc @index}}. {{this.question}}</p>
+    <div class="row">
+    {{#each this.options}}
+      <div class="column"><p class="answers">{{inc @index}}. {{this}}</p></div>
+    {{/each}}
+  </div>
+  {{/each}}
+</body>
+</html>

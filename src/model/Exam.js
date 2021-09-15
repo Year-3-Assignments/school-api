@@ -50,6 +50,11 @@ const ExamSchema = new Schema(
       required: [true, 'Exam status is required'],
       trim: true,
     },
+    accessLink: {
+      type: String,
+      required: false,
+      trim: true,
+    }
   },
   {
     timestamps: true,

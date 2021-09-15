@@ -2,6 +2,7 @@ import User from '../model/User';
 import enums from './controller.enums';
 import responseHandler from '../response/response.handler';
 import LOG from './controller.log';
+import { response } from 'express';
 
 export async function createUser(req, res) {
   if (req.body && req.body.userName) {
@@ -105,4 +106,124 @@ export async function getUserInfo(req, res) {
   } else {
     responseHandler.notFound(res);
   }
+}
+
+//get all registered employees
+export async function getAllEmployees(req, res) {
+  await User.find({})
+    .then((employees) => {
+      res.status(200).json(employees);
+    })
+    .catch((error) => {
+      res.status(500).json(error.message);
+    });
+}
+
+//get employee by id
+export async function getEmployeeById(req, res, next) {
+  if (req.params && req.params.id) {
+    await User.findById(req.params.id)
+      .populate({
+        path: 'employee',
+        populate: {
+          path: 'employee',
+          model: 'users',
+          select:
+            '_id firstname lastname dateofbirth address1 address2 city province imageurl phone email username salary',
+        },
+      })
+      .then((data) => {
+        response.sendRespond(res, data);
+        next();
+      })
+      .catch((error) => {
+        response.sendRespond(res, error.message);
+        next();
+      });
+  } else {
+    response.sendRespond(res, enums.user.NOT_FOUND);
+    return;
+  }
+}
+
+//delete employee/user
+export async function deleteEmployee(req, res) {
+  if (req.params.id && req.user && req.user.role === enums.role.ADMIN) {
+    try {
+      new Promise(async (resolve, reject) => {
+        let user = await user.findById(req.params.id);
+
+        if (!user) {
+          throw new Error(enums.NOT_FOUND);
+        }
+        user = await user.findByIdAndDelete(req.params.id);
+        return resolve({ user });
+      })
+        .then((data) => {
+          responseHandler.respond(res, data);
+        })
+        .catch((error) => {
+          responseHandler.handleError(res, error.message);
+        });
+    } catch (error) {
+      return responseHandler.handleError(res, error.message);
+    }
+  } else {
+    return responseHandler.respond(res, enums.roleIssue.ONLY_ADMIN);
+  }
+}
+
+//Update employee
+export async function updateEmployee(req, res) {
+  if (req.params.id && req.user && req.user.role === enums.role.ADMIN) {
+    try {
+      new Promise(async (resolve, reject) => {
+        let user = await User.findById(req.params.id);
+
+        if (!user) {
+          throw new Error(enums.user.NOT_FOUND);
+        }
+
+        let userDetails = {
+          firstname: req.body.firstName,
+          lastname: req.body.lastName,
+          dateofbirth: req.body.dateofbirth,
+          address1: req.body.addressLine1,
+          address2: req.body.addressLine2,
+          city: req.body.city,
+          province: req.body.province,
+          imageurl: req.body.imageurl,
+          phone: req.body.phoneNumber,
+          email: req.body.email,
+          role: req.body.role,
+          username: req.body.userName,
+          password: req.body.password,
+        };
+
+        user = await User.findByIdAndUpdate(req.params.id, userDetails);
+        return resolve({ user });
+      })
+        .then((data) => {
+          responseHandler.respond(res, data);
+        })
+        .catch((error) => {
+          responseHandler.handleError(res, error.message);
+        });
+    } catch (error) {
+      responseHandler.handleError(res, error.message);
+    }
+  } else {
+    return responseHandler.respond(res, enums.roleIssue.ONLY_ADMIN);
+  }
+}
+
+//get Salary details
+export async function getAllSalary(req, res) {
+  await User.find({})
+    .then((employees) => {
+      res.status(200).json(employees);
+    })
+    .catch((error) => {
+      res.status(500).json(error.message);
+    });
 }
