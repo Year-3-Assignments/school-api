@@ -67,8 +67,8 @@ export default function (app) {
   app.post('/student/add', auth, createStudent);
   app.get('/student', auth, getAllStudents);
   app.get('/student/:id', auth, getStudentByID);
-  app.put('student/update/:id', auth, updateStudent);
-  app.delete('student/delete/:id', auth, deleteStudent);
+  app.put('/student/update/:id', auth, updateStudent);
+  app.delete('/student/delete/:id', auth, deleteStudent);
   // Question API endpoints
   app.post('/question/add', auth, createQuestion);
   app.get('/question/exam/teacher/:id', auth, getQuestionsForTeacher);
