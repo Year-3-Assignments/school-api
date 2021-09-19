@@ -67,7 +67,6 @@ export async function updateStudent(req, res) {
           city: req.body.city,
           province: req.body.province,
           grade: req.body.grade,
-          imageurl: req.body.imageurl,
           achievements: req.body.achievements,
           parent: req.body.parent,
           phone: req.body.phone,
