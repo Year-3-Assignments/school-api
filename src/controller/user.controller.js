@@ -185,20 +185,20 @@ export async function updateEmployee(req, res) {
         }
 
         let userDetails = {
-          firstname: req.body.firstName,
-          lastname: req.body.lastName,
+          firstName: req.body.firstname,
+          lastName: req.body.lastname,
           dateofbirth: req.body.dateofbirth,
-          address1: req.body.addressLine1,
-          address2: req.body.addressLine2,
+          addressLine1: req.body.address1,
+          addressLine2: req.body.address2,
           city: req.body.city,
-          description:req.body.description,
+          description: req.body.description,
           province: req.body.province,
-          phone: req.body.phoneNumber,
+          phoneNumber: req.body.phone,
           email: req.body.email,
           role: req.body.role,
-          username: req.body.userName,
+          userName: req.body.username,
           password: req.body.password,
-          salary:req.body.salary,
+          salary: req.body.salary,
         };
 
         user = await User.findByIdAndUpdate(req.params.id, userDetails);
@@ -214,7 +214,7 @@ export async function updateEmployee(req, res) {
       responseHandler.handleError(res, error.message);
     }
   } else {
-    return responseHandler.respond(res, enums.roleIssue.ONLY_ADMIN);
+    return responseHandler.handleError(res, enums.roleIssue.ONLY_ADMIN);
   }
 }
 
