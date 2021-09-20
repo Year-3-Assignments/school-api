@@ -191,13 +191,14 @@ export async function updateEmployee(req, res) {
           address1: req.body.addressLine1,
           address2: req.body.addressLine2,
           city: req.body.city,
+          description:req.body.description,
           province: req.body.province,
-          imageurl: req.body.imageurl,
           phone: req.body.phoneNumber,
           email: req.body.email,
           role: req.body.role,
           username: req.body.userName,
           password: req.body.password,
+          salary:req.body.salary,
         };
 
         user = await User.findByIdAndUpdate(req.params.id, userDetails);
