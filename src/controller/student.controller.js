@@ -112,9 +112,11 @@ export async function deleteStudent(req, res) {
           responseHandler.respond(res, data);
         })
         .catch((error) => {
+          console.log(error);
           responseHandler.handleError(res, error.message);
         });
     } catch (error) {
+      console.log(error);
       return responseHandler.handleError(res, error.message);
     }
   } else {
