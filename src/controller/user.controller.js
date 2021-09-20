@@ -163,9 +163,11 @@ export async function deleteEmployee(req, res) {
           responseHandler.respond(res, data);
         })
         .catch((error) => {
+          console.log(error);
           responseHandler.handleError(res, error.message);
         });
     } catch (error) {
+      console.log(error);
       return responseHandler.handleError(res, error.message);
     }
   } else {
@@ -192,7 +194,6 @@ export async function updateEmployee(req, res) {
           addressLine2: req.body.address2,
           city: req.body.city,
           description: req.body.description,
-          province: req.body.province,
           phoneNumber: req.body.phone,
           email: req.body.email,
           role: req.body.role,
