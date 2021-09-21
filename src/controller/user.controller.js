@@ -151,12 +151,12 @@ export async function deleteEmployee(req, res) {
   if (req.params.id && req.user && req.user.role === enums.role.ADMIN) {
     try {
       new Promise(async (resolve, reject) => {
-        let user = await user.findById(req.params.id);
+        let user = await User.findById(req.params.id);
 
         if (!user) {
           throw new Error(enums.NOT_FOUND);
         }
-        user = await user.findByIdAndDelete(req.params.id);
+        user = await User.findByIdAndDelete(req.params.id);
         return resolve({ user });
       })
         .then((data) => {
