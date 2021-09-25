@@ -67,7 +67,6 @@ export async function updateStudent(req, res) {
           city: req.body.city,
           province: req.body.province,
           grade: req.body.grade,
-          imageurl: req.body.imageurl,
           achievements: req.body.achievements,
           parent: req.body.parent,
           phone: req.body.phone,
@@ -113,9 +112,11 @@ export async function deleteStudent(req, res) {
           responseHandler.respond(res, data);
         })
         .catch((error) => {
+          console.log(error);
           responseHandler.handleError(res, error.message);
         });
     } catch (error) {
+      console.log(error);
       return responseHandler.handleError(res, error.message);
     }
   } else {

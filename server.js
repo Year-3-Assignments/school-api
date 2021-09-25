@@ -9,7 +9,6 @@ import {
   LOCAL_MONGO_URI,
 } from './config';
 import LOG from './log';
-import cors from 'cors';
 import routes from './routes';
 import Handlbars from 'handlebars';
 
@@ -45,6 +44,7 @@ if (PORT && mongoUri) {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
     })
     .then(() => {
       LOG.info('Database Synced');
