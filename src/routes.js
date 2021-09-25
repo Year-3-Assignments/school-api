@@ -87,7 +87,7 @@ export default function (app) {
   app.post('/sportsinventory/add', createSportInventory);
   app.get('/sportsinventory', getAllSportsInventory);
   app.put('/sportsinventory/:id', updateSportInventory);
-  app.delete('/sportsinventory/:id', deleteSport);
+  app.delete('/sportsinventory/:id', deleteSportInventory);
   // PDF url
   app.post('/get-pdf', generatePaper);
 }
