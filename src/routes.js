@@ -54,8 +54,8 @@ export default function (app) {
   app.get('/user/', auth, getUserInfo);
   app.get('/user/getAllEmployees', getAllEmployees);
   app.get('/user/:id', getEmployeeById);
-  app.delete('/user/delete/:id', deleteEmployee);
-  app.put('/user/update:id', updateEmployee);
+  app.delete('/user/delete/:id', auth, deleteEmployee);
+  app.put('/user/update/:id', auth, updateEmployee);
   app.get('/user/salary', getAllSalary);
   // Exam API endpoints
   app.post('/exam/add', auth, createExam);

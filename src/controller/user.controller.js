@@ -151,21 +151,23 @@ export async function deleteEmployee(req, res) {
   if (req.params.id && req.user && req.user.role === enums.role.ADMIN) {
     try {
       new Promise(async (resolve, reject) => {
-        let user = await user.findById(req.params.id);
+        let user = await User.findById(req.params.id);
 
         if (!user) {
           throw new Error(enums.NOT_FOUND);
         }
-        user = await user.findByIdAndDelete(req.params.id);
+        user = await User.findByIdAndDelete(req.params.id);
         return resolve({ user });
       })
         .then((data) => {
           responseHandler.respond(res, data);
         })
         .catch((error) => {
+          console.log(error);
           responseHandler.handleError(res, error.message);
         });
     } catch (error) {
+      console.log(error);
       return responseHandler.handleError(res, error.message);
     }
   } else {
@@ -185,19 +187,19 @@ export async function updateEmployee(req, res) {
         }
 
         let userDetails = {
-          firstname: req.body.firstName,
-          lastname: req.body.lastName,
+          firstName: req.body.firstname,
+          lastName: req.body.lastname,
           dateofbirth: req.body.dateofbirth,
-          address1: req.body.addressLine1,
-          address2: req.body.addressLine2,
+          addressLine1: req.body.address1,
+          addressLine2: req.body.address2,
           city: req.body.city,
-          province: req.body.province,
-          imageurl: req.body.imageurl,
-          phone: req.body.phoneNumber,
+          description: req.body.description,
+          phoneNumber: req.body.phone,
           email: req.body.email,
           role: req.body.role,
-          username: req.body.userName,
+          userName: req.body.username,
           password: req.body.password,
+          salary: req.body.salary,
         };
 
         user = await User.findByIdAndUpdate(req.params.id, userDetails);
@@ -213,7 +215,7 @@ export async function updateEmployee(req, res) {
       responseHandler.handleError(res, error.message);
     }
   } else {
-    return responseHandler.respond(res, enums.roleIssue.ONLY_ADMIN);
+    return responseHandler.handleError(res, enums.roleIssue.ONLY_ADMIN);
   }
 }
 
